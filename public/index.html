@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="favicon.ico">
+    <script src="https://unpkg.com/vue"></script>
+    <title>homework1</title>
+  </head>
+  <body>
+    <div id="app" align="center">
+      <button v-on:click="Attack">Attack</button>
+      <p>Your hp: {{ hp1 }}</p>
+      <p>Enemy's hp: {{ hp2 }}</p>
+      <p>{{ message }}</p>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+            hp1: 100,
+            hp2: 100,
+            message: "",
+            isFinished: false,
+        },
+        methods: {
+          Attack: function(event) {
+            if(!this.isFinished) {
+              this.hp1 -= Math.floor(Math.random() * Math.floor(10));
+              this.hp2 -= Math.floor(Math.random() * Math.floor(10));
+              if(this.hp1 <= 0 && this.hp2 <= 0) {
+                this.message = "DRAW!";
+                this.hp1 = 0;
+                this.hp2 = 0;
+                this.isFinished = true;
+              }
+              else if(this.hp1 <=0) {
+                this.message = "YOU LOST!";
+                this.hp1 = 0;
+                this.isFinished = true;
+              }
+              else if(this.hp2 <= 0) {
+                this.message = "YOU WON!";
+                this.hp2 = 0;
+                this.isFinished = true;
+              }
+            }
+            else {
+              this.message = "";
+              this.hp1 = 100;
+              this.hp2 = 100;
+              this.isFinished = false;
+            }
+          }
+        }
+        });
+      </script>
+  </body>
+</html>
